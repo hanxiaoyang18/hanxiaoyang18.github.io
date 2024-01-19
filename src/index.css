@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --bgred1: 6 96% 25%;
+        --bgred3: 4 95% 57%;
+        --bgblack: 0 0% 48%;
+        --bgorange2: 48 100% 50%;
+        --bgred2: hsl(6, 72%, 59%);
+        --bgred4: hsl(4, 95%, 57%);
+        --bgorange: hsl(48, 100%, 50%);
+        --bgorangef: hsl(42, 100%, 50%);
+
+    }
+}
+
+@supports(animation-timeline: view()) {
+    @keyframes move {
+        to {
+            /* Move horizontally so that right edge is aligned against the viewport */
+            transform: translateX(calc(100% - 50vw));
+            left: 0px;
+        }
+    }
+
+    .sectionPin {
+        /* Stretch it out, so that we create room for the horizontal scroll animation */
+        height: 500vh;
+        overflow: visible;
+        /* To make position sticky work … */
+
+
+        view-timeline-name: --section-pin-tl;
+        view-timeline-axis: block;
+    }
+
+    .pin-wrap {
+
+        display: flex;
+        position: relative;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        width: 250vmax;
+        height: 100vh;
+        left: -150vh;
+
+        color: #ffffff;
+
+        will-change: transform;
+        animation: linear move forwards;
+
+        animation-timeline: --section-pin-tl;
+        animation-range: contain 0% contain 100%;
+    }
+
+    .pin-wrap>* {
+        min-width: 60vmax;
+
+    }
+
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        clip-path: inset(45% 20% 45% 20%);
+    }
+
+    to {
+        opacity: 1;
+        clip-path: inset(0% 0% 0% 0%);
+    }
+}
+
+.revealing-image {
+    /* Create View Timeline */
+    view-timeline-name: --revealing-image;
+    view-timeline-axis: block;
+
+    /* Attach animation, linked to the  View Timeline */
+    animation: linear reveal both;
+    animation-timeline: --revealing-image;
+
+    /* Tweak range when effect should run*/
+    animation-range: entry 25% cover 50%;
+    margin-left: 10vw;
+    max-width: 35vw;
+
+}
+
+.revealing-image2 {
+    /* Create View Timeline */
+    view-timeline-name: --revealing-image;
+    view-timeline-axis: block;
+
+    /* Attach animation, linked to the  View Timeline */
+    animation: linear reveal both;
+    animation-timeline: --revealing-image;
+
+    /* Tweak range when effect should run*/
+    animation-range: entry 25% cover 50%;
+    max-width: 16vw;
+    padding-left: 0.6vw;
+    margin-bottom: 1.5vw;
+  
+
+
+}
+
+
+.popBox {
+    display: none;
+}
+
+.popBox:target {
+    padding-top: 5vw;
+ 
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+
+.popBox .con {
+
+    border-radius: 5px;
+    padding: 1VW;
+    position: relative;
+    width: 75VW;
+}
+
+
+.popBox .close {
+    display: block;
+    position: relative;
+}
+
+.popBox .close::after {
+    align-items: center;
+    color: white;
+    content: "×";
+    cursor: pointer;
+    background-color: rgba(79, 79, 79, 0.9);
+    border-radius: 50%;
+    display: flex;
+    font-size: 1.25rem;
+    justify-content: center;
+    position: absolute;
+    right: -2.5rem;
+    top: -2.5rem;
+    height: 2rem;
+    width: 2rem;
+    z-index: 2;
+}
+
+.popBox::before {
+    content: "";
+    cursor: default;
+    background-color: rgba(173, 173, 173, 0.66);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
